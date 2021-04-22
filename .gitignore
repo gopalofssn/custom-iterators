@@ -2,3 +2,10 @@
 *.prefs
 .project
 .classpath
+*.html
+*.png
+*.xml
+*.css
+*.js
+*.gif
+*.properties

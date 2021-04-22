@@ -11,23 +11,23 @@ public class PeekingIteratorOnCollectionTest {
   @Test
   public void testList() {
     List<String> elements = new ArrayList<String>(Arrays.asList("hello", "world"));
-    PeekingIteratorOnCollection<String> peekingIteratorOnCollection = new PeekingIteratorOnCollection<String>(elements);
-    assertTrue(peekingIteratorOnCollection.hasNext());
-    assertEquals(peekingIteratorOnCollection.peek(), "hello");
-    assertEquals(peekingIteratorOnCollection.next(), "hello");
-    assertEquals(peekingIteratorOnCollection.next(), "world");
-    assertFalse(peekingIteratorOnCollection.hasNext());
+    PeekingIterator<String> peekingIterator = new PeekingIteratorOnCollection<String>(elements);
+    assertTrue(peekingIterator.hasNext());
+    assertEquals(peekingIterator.peek(), "hello");
+    assertEquals(peekingIterator.next(), "hello");
+    assertEquals(peekingIterator.next(), "world");
+    assertFalse(peekingIterator.hasNext());
   }
   
   @Test
   public void testSet() {
     Set<Integer> elements = new HashSet<Integer>(Arrays.asList(1,2));
-    PeekingIteratorOnCollection<Integer> peekingIteratorOnCollection = new PeekingIteratorOnCollection<Integer>(elements);
-    assertTrue(peekingIteratorOnCollection.hasNext());
-    assertEquals(peekingIteratorOnCollection.peek(), new Integer(1));
-    assertEquals(peekingIteratorOnCollection.next(), new Integer(1));
-    assertEquals(peekingIteratorOnCollection.next(), new Integer(2));
-    assertFalse(peekingIteratorOnCollection.hasNext());
+    PeekingIterator<Integer> peekingIterator = new PeekingIteratorOnCollection<Integer>(elements);
+    assertTrue(peekingIterator.hasNext());
+    assertEquals(peekingIterator.peek(), new Integer(1));
+    assertEquals(peekingIterator.next(), new Integer(1));
+    assertEquals(peekingIterator.next(), new Integer(2));
+    assertFalse(peekingIterator.hasNext());
   }
   
   @Test(expected = IllegalArgumentException.class)
@@ -37,12 +37,20 @@ public class PeekingIteratorOnCollectionTest {
   }
   
   @Test(expected = NoSuchElementException.class)
-  public void testNoSuchElementException() {
+  public void testNoSuchElementExceptionForPeek() {
     Set<Integer> elements = new HashSet<Integer>(Arrays.asList(1));
-    PeekingIteratorOnCollection<Integer> peekingIteratorOnCollection = new PeekingIteratorOnCollection<Integer>(elements);
-    assertEquals(peekingIteratorOnCollection.next(), new Integer(1));
-    assertFalse(peekingIteratorOnCollection.hasNext());
-    assertEquals(peekingIteratorOnCollection.next(), new Integer(1));
+    PeekingIterator<Integer> peekingIterator = new PeekingIteratorOnCollection<Integer>(elements);
+    assertEquals(peekingIterator.next(), new Integer(1));
+    assertEquals(peekingIterator.peek(), new Integer(2));
+  }
+  
+  @Test(expected = NoSuchElementException.class)
+  public void testNoSuchElementExceptionForNext() {
+    Set<Integer> elements = new HashSet<Integer>(Arrays.asList(1));
+    PeekingIterator<Integer> peekingIterator = new PeekingIteratorOnCollection<Integer>(elements);
+    assertEquals(peekingIterator.next(), new Integer(1));
+    assertFalse(peekingIterator.hasNext());
+    assertEquals(peekingIterator.next(), new Integer(2));
   }
   
 }

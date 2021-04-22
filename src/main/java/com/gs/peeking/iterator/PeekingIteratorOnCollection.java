@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class PeekingIteratorOnCollection<T> implements Iterator<T> {
+public class PeekingIteratorOnCollection<T> implements PeekingIterator<T> {
 
   private Iterator<T> iterator;
   private T peek;
@@ -25,22 +25,22 @@ public class PeekingIteratorOnCollection<T> implements Iterator<T> {
 
   public T next() {
 
-    if (!hasNext()) {
+    if (peek == null) {
       throw new NoSuchElementException(" There are no more element");
     }
 
     T element = peek;
-    if (iterator.hasNext()) {
-      peek = iterator.next();
-    } else {
-      peek = null;
-    }
-
+    peek = iterator.hasNext() ? iterator.next() : null;
+   
     return element;
   }
 
   public T peek() {
 
+    if (peek == null) {
+      throw new NoSuchElementException(" There are no element to peek");
+    }
+    
     return peek;
   }
 
