@@ -8,10 +8,22 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class ZigzagNListsIteratorTest {
 
+  @SuppressWarnings("unchecked")
+  @DataProvider
+  public Iterator<Integer>[] dataProvider(){
+    List<List<Integer>> dataList = new ArrayList<List<Integer>>();
+    return new Iterator[] {
+        new ZigzagNListsIterator(dataList),
+        
+    };
+    
+  }
+  
   @Test(expectedExceptions = NoSuchElementException.class)
   public void testNull() {
     List<List<Integer>> dataList = new ArrayList<List<Integer>>();
